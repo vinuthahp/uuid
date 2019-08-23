@@ -1,15 +1,15 @@
 version: 0.2
 
 phases:
-  install:
+ install:
     runtime-versions:
-        php: 7.3
-  build:
+     nodejs: 10
+    pre_build:
     commands:
-     - composer install --no-interaction --prefer-dist \
-    && ./vendor/bin/parallel-lint src tests \
-    && ./vendor/bin/phpunit --verbose --no-coverage \
-    && ./vendor/bin/phpcs src tests --standard=psr2 -sp
-artifacts:
-  files:
-    -  README.md
+      - npm install *
+    build:
+    commands:
+      - npm run build
+    post_build:
+    commands:
+      - echo Build completed on `date`
